@@ -18,6 +18,8 @@ button{
     border: 1px bold;
     width: 100px;
     height: 30px;
+    margin-top: 20px;
+
 }
 button:hover{
     background-color: red;
@@ -27,5 +29,10 @@ button:hover{
     border: 4px bold;
     width: 100px;
     height: 30px;
-
+    transform: translateY(-4px);
+}
+select{
+    background-color: aquamarine;
+    color: red;
+    font-weight: bold;
 }
