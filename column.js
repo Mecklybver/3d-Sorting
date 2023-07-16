@@ -12,24 +12,24 @@ class Column {
       b: 150,
     };
     this.queue = [];
+    this.frameCount = 5;
   }
 
-  moveTo(loc, yOffset = 1,left=true, frameCount = 12) {
+  moveTo(loc, yOffset = 1, left = true, frameCount = this.frameCount) {
     for (let i = 1; i <= frameCount; i++) {
       const t = i / frameCount;
       const u = Math.sin(t * Math.PI);
       this.queue.push({
         x: lerp(this.x, loc.x, t),
         y: lerp(this.y, loc.y, t) + u * this.width * 0.6 * yOffset,
-        r: left==true? lerp(150, 255, u): lerp(150, 255, u),
-        g: left==true? lerp(150, 0, u): lerp(150, 255, u),
-        b: left==true? lerp(150, 0, u): lerp(150, 0, u),
-        
+        r: left == true ? lerp(150, 255, u) : lerp(150, 255, u),
+        g: left == true ? lerp(150, 0, u) : lerp(150, 255, u),
+        b: left == true ? lerp(150, 0, u) : lerp(150, 0, u),
       });
     }
   }
 
-  jump(yOffset = -2, frameCount = 12) {
+  jump(green = true, yOffset = -2, frameCount = this.frameCount) {
     for (let i = 1; i <= frameCount; i++) {
       const t = i / frameCount;
       const u = Math.sin(t * Math.PI);
@@ -38,9 +38,9 @@ class Column {
         y:
           lerp(this.y, this.y - u * this.width * 0.6 * yOffset, t) +
           u * this.width * 0.6 * yOffset,
-        r: lerp(150, 0, u),
-        g: lerp(150, 0, u),
-        b: lerp(150, 255, u),
+        r: green == true ? lerp(150, 0, u) : lerp(150, 255, u),
+        g: green == true ? lerp(150, 0, u) : lerp(150, 255, u),
+        b: green == true ? lerp(150, 255, u) : lerp(150, 255, u),
       });
     }
   }

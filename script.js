@@ -1,6 +1,6 @@
 import Column from "./column.js";
+import lerp from "./math.js";
 import { bubbleSort, selectionSort, doubleBubbleSort } from "./sorts.js";
-
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -14,6 +14,20 @@ let moves = [];
 const spacing = (canvas.width - margin * 2) / n;
 const maxColumnHeight = 200;
 let audioCtx;
+function init() {
+  for (let i = 0; i < n; i++) {
+    array[i] = Math.random();
+  }
+
+  for (let i = 0; i < array.length; i++) {
+    const x = i * spacing + spacing * 0.5 + margin;
+    const y = canvas.height - margin - i * 3;
+    const width = spacing - 4;
+    const height = maxColumnHeight * array[i];
+    cols[i] = new Column(x, y, width, height);
+  }
+}
+init();
 
 function playNote(freq, type) {
   if (!audioCtx) {
@@ -44,7 +58,6 @@ window.init = () => {
     array[i] = Math.random();
   }
 
-
   for (let i = 0; i < array.length; i++) {
     const x = i * spacing + spacing * 0.5 + margin;
     const y = canvas.height - margin - i * 3;
@@ -58,11 +71,9 @@ let sort = "bubbleSort";
 
 window.sorting = () => {
   sort = document.querySelector("select").value;
-  console.log(sort);
 };
 
 window.play = () => {
-  
   if (sort === "bubbleSort") {
     moves = bubbleSort(array);
   }
@@ -72,7 +83,6 @@ window.play = () => {
   if (sort === "doubleBubbleSort") {
     moves = doubleBubbleSort(array);
   }
- 
 };
 
 function animate() {
@@ -95,6 +105,24 @@ function animate() {
     } else {
       cols[i].jump();
       cols[j].jump();
+    }
+  }
+  if (changed && moves.length == 0) {
+    let j=0
+    for (let i = array.length - 1; i >= 0; i--) {
+      j++
+      setTimeout(() => {
+        cols[i].color = {r: 0, g: 255, b: 0};
+        playNote([array[i]], "square");
+      }, 100 * j);
+      if ( i == 0){
+        for (let i = array.length - 1; i >= 0; i--){
+          j++
+          setTimeout(() => {
+            cols[i].color = {r: 150, g: 150, b: 150};
+          }, 100 * j);
+        }
+      }
     }
   }
 
