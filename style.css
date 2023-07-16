@@ -37,7 +37,8 @@ select{
     font-weight: bold;
 }
 input {
-    width: 300px;
-    accent-color: red;
-   
+    width: 500px;
+    accent-color: white;
+    direction: rtl;
+
   }

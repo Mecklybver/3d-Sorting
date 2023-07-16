@@ -4,8 +4,8 @@ import { bubbleSort, selectionSort, doubleBubbleSort } from "./sorts.js";
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth*0.8;
-canvas.height = window.innerHeight*0.8;
+canvas.width = window.innerWidth * 0.8;
+canvas.height = window.innerHeight * 0.8;
 const margin = 30;
 const n = 30;
 let array = [];
@@ -18,7 +18,7 @@ let frameCount = 15;
 
 window.changeSpeed = (value) => {
   frameCount = value;
-}
+};
 
 function init() {
   for (let i = 0; i < n; i++) {
@@ -34,8 +34,6 @@ function init() {
   }
 }
 init();
-
-
 
 function playNote(freq, type) {
   if (!audioCtx) {
@@ -116,19 +114,19 @@ function animate() {
     }
   }
   if (changed && moves.length == 0) {
-    let j=0
+    let j = 0;
     for (let i = array.length - 1; i >= 0; i--) {
-      j++
+      j++;
       setTimeout(() => {
-        cols[i].color = {r: 0, g: 255, b: 0};
-        playNote([array[i]], "triangle");
-      }, 150 * j);
-      if ( i == 0){
-        for (let i = array.length - 1; i >= 0; i--){
-          j++
+        cols[i].color = { r: 0, g: 255, b: 0 };
+        playNote([array[i]], "sawtooth");
+      }, frameCount * 13 * j);
+      if (i == 0) {
+        for (let i = array.length - 1; i >= 0; i--) {
+          j++;
           setTimeout(() => {
-            cols[i].color = {r: 150, g: 150, b: 150};
-          }, 150 * j);
+            cols[i].color = { r: 150, g: 150, b: 150 };
+          }, frameCount * 13 * j);
         }
       }
     }
