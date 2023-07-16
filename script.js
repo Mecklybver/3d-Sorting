@@ -4,16 +4,22 @@ import { bubbleSort, selectionSort, doubleBubbleSort } from "./sorts.js";
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 400;
-canvas.height = 300;
+canvas.width = window.innerWidth*0.8;
+canvas.height = window.innerHeight*0.8;
 const margin = 30;
-const n = 20;
+const n = 30;
 let array = [];
 let cols = [];
 let moves = [];
 const spacing = (canvas.width - margin * 2) / n;
 const maxColumnHeight = 200;
 let audioCtx;
+let frameCount = 15;
+
+window.changeSpeed = (value) => {
+  frameCount = value;
+}
+
 function init() {
   for (let i = 0; i < n; i++) {
     array[i] = Math.random();
@@ -24,10 +30,12 @@ function init() {
     const y = canvas.height - margin - i * 3;
     const width = spacing - 4;
     const height = maxColumnHeight * array[i];
-    cols[i] = new Column(x, y, width, height);
+    cols[i] = new Column(x, y, width, height, frameCount);
   }
 }
 init();
+
+
 
 function playNote(freq, type) {
   if (!audioCtx) {
@@ -90,7 +98,7 @@ function animate() {
 
   let changed = false;
   cols.forEach((col) => {
-    changed = col.draw(ctx) || changed;
+    changed = col.draw(ctx, frameCount) || changed;
   });
 
   if (!changed && moves.length > 0) {
@@ -113,14 +121,14 @@ function animate() {
       j++
       setTimeout(() => {
         cols[i].color = {r: 0, g: 255, b: 0};
-        playNote([array[i]], "square");
-      }, 100 * j);
+        playNote([array[i]], "triangle");
+      }, 150 * j);
       if ( i == 0){
         for (let i = array.length - 1; i >= 0; i--){
           j++
           setTimeout(() => {
             cols[i].color = {r: 150, g: 150, b: 150};
-          }, 100 * j);
+          }, 150 * j);
         }
       }
     }

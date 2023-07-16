@@ -9,16 +9,19 @@
   <div>
     <button onClick="init()">Init</button>
     <button onClick="play()">Play</button>
-
-    
   </div>
+  
   <div>
     <select onchange="sorting()">
-        <option value="bubbleSort">Bubble Sort</option>
-        <option value="selectionSort">Selection Sort</option>
-        <option value="doubleBubbleSort">Double Bubble Sort</option>
-      </select>
+      <option value="bubbleSort">Bubble Sort</option>
+      <option value="selectionSort">Selection Sort</option>
+      <option value="doubleBubbleSort">Double Bubble Sort</option>
+    </select>
+    <label for="speed">Speed:</label>
+    <input type="range"  min="5" max="60" value="12" oninput="changeSpeed(this.value)">
   </div>
+  
+ 
 
   <script type="module" src="script.js"></script>
 </body>

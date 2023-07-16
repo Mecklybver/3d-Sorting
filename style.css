@@ -36,3 +36,8 @@ select{
     color: red;
     font-weight: bold;
 }
+input {
+    width: 300px;
+    accent-color: red;
+   
+  }

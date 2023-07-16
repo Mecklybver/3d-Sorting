@@ -12,10 +12,13 @@ class Column {
       b: 150,
     };
     this.queue = [];
-    this.frameCount = 5;
+    this.frameCount = 15;
+    
   }
 
   moveTo(loc, yOffset = 1, left = true, frameCount = this.frameCount) {
+    console.log(this.frameCount);
+    
     for (let i = 1; i <= frameCount; i++) {
       const t = i / frameCount;
       const u = Math.sin(t * Math.PI);
@@ -45,7 +48,9 @@ class Column {
     }
   }
 
-  draw(ctx) {
+  draw(ctx,frameCount) {
+    this.frameCount = frameCount;
+    console.log(this.frameCount);
     let changed = false;
     if (this.queue.length > 0) {
       const { x, y, r, g, b } = this.queue.shift();
